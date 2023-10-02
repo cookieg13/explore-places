@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 const HttpError = require('./models/http-error');
 const placesRoutes = require('./routes/places-route');
@@ -26,7 +27,7 @@ app.use((error, req, res, next) => {
 })
 
 mongoose
-    .connect('mongodb+srv://dg:E8YnWrNaqqDnP7q@cluster0.ci2i0bz.mongodb.net/?retryWrites=true&w=majority')
+    .connect(`mongodb+srv://${process.env.MONGODB_URI}`)
     .then(() => {
         app.listen(4000);
     })
@@ -34,3 +35,4 @@ mongoose
         console.log(err);
     });
 
+//async await -- https://www.freecodecamp.org/news/javascript-async-await-tutorial-learn-callbacks-promises-async-await-by-making-icecream/
